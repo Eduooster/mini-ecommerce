@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "produto_m")
+@Where(clause = "deleted = false")
 public class Produto {
 
     @Id
@@ -29,12 +31,16 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private LocalDate dataCadastro;
-    private Boolean deleted;
+    @Column(updatable = false)
+    private LocalDate dataCadastro = LocalDate.now();
+    private Boolean deleted = false;
+    private String sku;
 
     //Um produto pd estar em variso carrinhos
     @OneToMany(mappedBy = "produto")
     private List<ItemCarrinho> itens = new ArrayList<>();
+    private String urlImagem;
+    private int estoque;
 
 
 }

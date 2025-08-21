@@ -20,13 +20,13 @@ public class Pedido {
     private Usuario usuario;
 
     //1 pedido pode ter n Itend
-    @OneToMany
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
     private String status;
     private BigDecimal total;
     private Endereco enderecoEntrega;
 
-    @OneToOne
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pagamento pagamento;
 }

@@ -16,9 +16,11 @@ public class ItemPedido {
 
     //
     @ManyToOne
+    @JoinColumn(name="pedido_id")
     private Pedido pedido;
 
     @ManyToOne
+    @JoinColumn(name = "item_id")
     private Produto produto;
     private BigDecimal precoUnit;
     private BigDecimal subtotal;
