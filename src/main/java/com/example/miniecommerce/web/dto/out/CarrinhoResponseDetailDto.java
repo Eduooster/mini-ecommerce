@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record CarrinhoResponseDetailDto(Long id,
-                                        String ,
+                                        String nome,
                                         LocalDateTime DataCriacao, LocalDateTime DataAtualizacao, List<ItemCarrinho> itens) {
 }

@@ -21,10 +21,9 @@ public class Carrinho {
     private Long id;
     @OneToOne
     private Usuario usuario;
-
-    private LocalDateTime dataCadastro = LocalDateTime.now();
+    private LocalDateTime dataCadastro;
     private LocalDateTime dataAtualizacao;
-    private String status = "Ativo";
+    private String status;
 
     // Um carrinho tem vários itens
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
