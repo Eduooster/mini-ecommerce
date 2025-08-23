@@ -1,4 +1,4 @@
-package com.example.miniecommerce.web.dto.Produto.in;
+package com.example.miniecommerce.web.dto.in;
 
 import java.math.BigDecimal;
 

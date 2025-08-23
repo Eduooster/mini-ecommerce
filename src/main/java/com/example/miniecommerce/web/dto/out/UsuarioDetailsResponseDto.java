@@ -1,9 +1,6 @@
-package com.example.miniecommerce.web.dto.Usuario.out;
+package com.example.miniecommerce.web.dto.out;
 
 import com.example.miniecommerce.domain.Role;
-import com.example.miniecommerce.web.dto.Endereco.EnderecoDto;
-import com.example.miniecommerce.web.dto.Notificacao.out.NotificacaoResponseDto;
-import com.example.miniecommerce.web.dto.Pedido.out.PedidoReponseDto;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;

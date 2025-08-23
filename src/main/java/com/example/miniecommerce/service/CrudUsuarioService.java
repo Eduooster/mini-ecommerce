@@ -4,9 +4,9 @@ import com.example.miniecommerce.domain.Usuario;
 import com.example.miniecommerce.infra.exception.UsuarioJaCadastrado;
 import com.example.miniecommerce.infra.exception.UsuarioNaoEncontrado;
 import com.example.miniecommerce.infra.repositorie.UsuarioRepository;
-import com.example.miniecommerce.web.dto.Usuario.in.UsuarioCreateRequestDto;
-import com.example.miniecommerce.web.dto.Usuario.out.ListaUsuarioResponseDto;
-import com.example.miniecommerce.web.dto.Usuario.out.UsuarioDetailsResponseDto;
+import com.example.miniecommerce.web.dto.in.UsuarioCreateRequestDto;
+import com.example.miniecommerce.web.dto.out.ListaUsuarioResponseDto;
+import com.example.miniecommerce.web.dto.out.UsuarioDetailsResponseDto;
 import com.example.miniecommerce.web.mapper.UsuarioMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -14,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CrudUsuarioService {

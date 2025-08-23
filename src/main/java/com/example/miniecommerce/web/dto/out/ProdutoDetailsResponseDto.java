@@ -1,4 +1,4 @@
-package com.example.miniecommerce.web.dto.Produto.out;
+package com.example.miniecommerce.web.dto.out;
 
 import com.example.miniecommerce.domain.CategoriaProduto;
 

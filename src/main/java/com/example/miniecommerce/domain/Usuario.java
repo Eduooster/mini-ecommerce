@@ -1,8 +1,11 @@
 package com.example.miniecommerce.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,6 +35,8 @@ public class Usuario  implements UserDetails {
     @Column(updatable = false) // nunca será alterada depois do insert
     private LocalDateTime dataCadastro = LocalDateTime.now();
     @Embedded
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Endereco endereco;
     private Boolean deleted = false;
 
@@ -39,9 +44,16 @@ public class Usuario  implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>(Set.of(Role.ROLE_USER));
 
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
     private List<Pedido> pedidos= new ArrayList<>();;
 
+
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.LAZY)
     private List<Notificacao> notificacao = new ArrayList<>();
 
@@ -50,9 +62,10 @@ public class Usuario  implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public String getPassword() {
@@ -61,6 +74,6 @@ public class Usuario  implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 }

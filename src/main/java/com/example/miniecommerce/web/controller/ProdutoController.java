@@ -1,10 +1,8 @@
 package com.example.miniecommerce.web.controller;
 
 import com.example.miniecommerce.service.CrudProdutoService;
-import com.example.miniecommerce.web.dto.Produto.in.ProdutoCreateRequestDto;
-import com.example.miniecommerce.web.dto.Produto.out.ProdutoDetailsResponseDto;
-import com.example.miniecommerce.web.dto.Usuario.out.ListaUsuarioResponseDto;
-import com.example.miniecommerce.web.dto.Usuario.out.UsuarioDetailsResponseDto;
+import com.example.miniecommerce.web.dto.in.ProdutoCreateRequestDto;
+import com.example.miniecommerce.web.dto.out.ProdutoDetailsResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

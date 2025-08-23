@@ -1,7 +1,6 @@
-package com.example.miniecommerce.web.dto.Usuario.in;
+package com.example.miniecommerce.web.dto.in;
 
-import com.example.miniecommerce.domain.Endereco;
-import com.example.miniecommerce.web.dto.Endereco.EnderecoDto;
+import com.example.miniecommerce.web.dto.out.EnderecoDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 

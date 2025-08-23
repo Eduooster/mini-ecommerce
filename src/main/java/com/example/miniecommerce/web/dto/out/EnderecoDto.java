@@ -1,4 +1,4 @@
-package com.example.miniecommerce.web.dto.Endereco;
+package com.example.miniecommerce.web.dto.out;
 
 public record EnderecoDto(
         String rua,

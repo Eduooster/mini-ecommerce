@@ -1,7 +1,7 @@
 package com.example.miniecommerce.web.mapper;
 
 import com.example.miniecommerce.domain.Pedido;
-import com.example.miniecommerce.web.dto.Pedido.out.PedidoReponseDto;
+import com.example.miniecommerce.web.dto.out.PedidoReponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
