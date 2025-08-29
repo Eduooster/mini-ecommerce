@@ -27,6 +27,13 @@ public class TratadorErros {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(detalhar(ex));
     }
 
+    @ExceptionHandler(CarrinhoDiferenteDoUsuarioLogado.class)
+    public ResponseEntity<Map<String, String>> CarrinhoDiferenteDoUsuarioLogado(
+            CarrinhoDiferenteDoUsuarioLogado ex
+    ){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(detalhar(ex));
+    }
+
     public Map<String,String> detalhar(Exception ex) {
         Map<String,String> map = new HashMap<>();
         map.put("erro", ex.getClass().getSimpleName());

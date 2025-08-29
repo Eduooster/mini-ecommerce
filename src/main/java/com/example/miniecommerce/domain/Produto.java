@@ -2,10 +2,7 @@ package com.example.miniecommerce.domain;
 
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import java.math.BigDecimal;
@@ -20,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "produto_m")
 @Where(clause = "deleted = false")
+
+@ToString(exclude = {"itens", "carrinho"})
 public class Produto {
 
     @Id

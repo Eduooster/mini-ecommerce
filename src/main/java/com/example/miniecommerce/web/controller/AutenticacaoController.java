@@ -4,6 +4,7 @@ package com.example.miniecommerce.web.controller;
 import com.example.miniecommerce.service.AutenticacaoService;
 import com.example.miniecommerce.web.dto.in.DadoAuthRequestDto;
 import com.example.miniecommerce.web.dto.out.DadosTokenJwt;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Gerenciamento de autenticações")
 public class AutenticacaoController {
 
     @Autowired

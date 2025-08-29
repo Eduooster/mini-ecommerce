@@ -3,6 +3,7 @@ package com.example.miniecommerce.web.controller;
 import com.example.miniecommerce.service.CrudProdutoService;
 import com.example.miniecommerce.web.dto.in.ProdutoCreateRequestDto;
 import com.example.miniecommerce.web.dto.out.ProdutoDetailsResponseDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("produto")
+@Tag(name = "Produto", description = "Gerenciamento de produtos")
 public class ProdutoController {
 
     private final CrudProdutoService crudProdutoService;

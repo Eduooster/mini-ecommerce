@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // desativa CSRF
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // libera todos endpoints
+
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

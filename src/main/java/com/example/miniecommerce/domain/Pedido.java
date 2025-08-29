@@ -19,14 +19,20 @@ public class Pedido {
     @ManyToOne
     private Usuario usuario;
 
-    //1 pedido pode ter n Itend
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
     private String status;
     private BigDecimal total;
+    private String tipoEntrega;
     private Endereco enderecoEntrega;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pagamento pagamento;
+
+    @OneToOne
+    @JoinColumn(name = "carrinho_id")
+    private Carrinho carrinho;
+
+
 }

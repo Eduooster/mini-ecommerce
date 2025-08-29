@@ -4,6 +4,7 @@ import com.example.miniecommerce.service.CrudUsuarioService;
 import com.example.miniecommerce.web.dto.in.UsuarioCreateRequestDto;
 import com.example.miniecommerce.web.dto.out.ListaUsuarioResponseDto;
 import com.example.miniecommerce.web.dto.out.UsuarioDetailsResponseDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/usuario")
+@Tag(name = "Usuario", description = "Gerenciamento de usuarios")
 public class UsuarioController {
 
 
