@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-public record UsuarioDetailsResponseDto(@NotBlank Long id,
+public record UsuarioDetailsResponseDto(
                                         @NotBlank String username,
                                         @NotBlank String email,
                                         @NotBlank LocalDateTime dataCadastro,

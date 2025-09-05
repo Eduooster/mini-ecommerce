@@ -65,8 +65,8 @@ public class StripePaymentService {
                     paymentIntent.getAmount(),
                     paymentIntent.getCurrency(),
                     paymentIntent.getPaymentMethod(),
-                    customer.getId(),
-                    paymentIntent.
+                    customer.getId()
+
             );
 
         }

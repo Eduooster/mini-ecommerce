@@ -56,6 +56,13 @@ public class TratadorErros {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(detalhar(ex));
     }
 
+    @ExceptionHandler(EstoqueInsuficiente.class)
+    public ResponseEntity<Map<String, String>> EstoqueInsuficiente(
+          EstoqueInsuficiente ex
+    ){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(detalhar(ex));
+    }
+
 
     public Map<String,String> detalhar(Exception ex) {
         Map<String,String> map = new HashMap<>();

@@ -48,34 +48,33 @@ public class PedidoController {
     private RealizarPagamento realizarPagamento;
 
     @PostMapping("")
-    private ResponseEntity<PedidoDetailsResponseDto> salvar(
+    private ResponseEntity salvar(
                                                             UriComponentsBuilder uriBuilder,
                                                             @AuthenticationPrincipal Usuario usuario){
 
         PedidoDetailsResponseDto cadastrarNovoPedido = pedidoCreateService.salvar(usuario);
         var uri = uriBuilder.path("/pedido/{id}").buildAndExpand(cadastrarNovoPedido.id()).toUri();
-        return ResponseEntity.created(uri).body(cadastrarNovoPedido);
+        return ResponseEntity.created(uri).build();
 
     }
 
     @PatchMapping("/{id}/endereco")
     private ResponseEntity atualizarEndereco(@RequestBody EnderecoDto enderecoDto, @PathVariable Long id){
-        PedidoStatusEnderecoDto pedidoStatusDto = pedidoEnderecoService.atualizar(id,enderecoDto);
-        return ResponseEntity.ok(pedidoStatusDto);
+         pedidoEnderecoService.atualizar(id,enderecoDto);
+        return ResponseEntity.ok().build();
     };
 
     @PatchMapping("/{idPedido}/frete")
     private ResponseEntity atualizarFrete(@PathVariable Long idPedido,@RequestBody FreteDto freteDto){
-
-       PedidoStatusFrete pedidoStatusFrete =  pedidoFreteService.atualizarFrete(idPedido,freteDto);
-       return ResponseEntity.ok(pedidoStatusFrete);
+        pedidoFreteService.atualizarFrete(idPedido,freteDto);
+       return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{idPedido}/pagamento")
-    private ResponseEntity<PedidoDetailsResponseDto> atualizarPagamento(@PathVariable Long idPedido, PagamentoCreateDto pagamentoDto){
+    private ResponseEntity atualizarPagamento(@PathVariable Long idPedido, PagamentoCreateDto pagamentoDto){
         pagamentoService.atualizarPagamento(idPedido,pagamentoDto);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{idPedido}/pagamento/checkout")

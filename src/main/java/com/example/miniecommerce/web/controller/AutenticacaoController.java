@@ -25,8 +25,6 @@ public class AutenticacaoController {
     public ResponseEntity efetuarAutenticacao(@RequestBody @Valid DadoAuthRequestDto dados) {
         String tokenJWT = autenticacaoService.autenticar(dados);
 
-
-
         return ResponseEntity.ok(new DadosTokenJwt(tokenJWT));
     }
 }
