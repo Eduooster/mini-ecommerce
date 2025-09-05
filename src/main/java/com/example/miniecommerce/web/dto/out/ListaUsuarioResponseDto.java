@@ -1,6 +1,7 @@
 package com.example.miniecommerce.web.dto.out;
 
 import com.example.miniecommerce.domain.Role;
+import com.example.miniecommerce.web.dto.in.EnderecoDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;

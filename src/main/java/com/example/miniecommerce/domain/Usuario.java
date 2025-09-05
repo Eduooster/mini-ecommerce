@@ -31,6 +31,9 @@ public class Usuario  implements UserDetails {
     private String password;
     private String email;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Carrinho> carrinhos = new ArrayList<>();
+
 
     @Column(updatable = false) // nunca será alterada depois do insert
     private LocalDateTime dataCadastro = LocalDateTime.now();
@@ -56,6 +59,8 @@ public class Usuario  implements UserDetails {
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.LAZY)
     private List<Notificacao> notificacao = new ArrayList<>();
+
+    private String stripeCustomerId;
 
 
 

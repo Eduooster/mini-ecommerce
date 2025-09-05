@@ -1,17 +1,18 @@
 package com.example.miniecommerce.web.controller;
 
 import com.example.miniecommerce.domain.Usuario;
-import com.example.miniecommerce.service.CarrinhoServices.AdicionarOuRemoverItem;
-import com.example.miniecommerce.service.CarrinhoServices.AtualizarCarrinhoService;
-import com.example.miniecommerce.service.CarrinhoServices.CadastrarCarrinhoService;
-import com.example.miniecommerce.service.CarrinhoServices.ListarCarrinho;
+import com.example.miniecommerce.service.CarrinhoServices.*;
+
 import com.example.miniecommerce.web.dto.in.ItemCarrinhoDto;
 import com.example.miniecommerce.web.dto.in.ItemCarrinhoRequestDto;
-import com.example.miniecommerce.web.dto.out.CarrinhoItensResponseDetailDto;
+
 import com.example.miniecommerce.web.dto.out.CarrinhoResponseDetailDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -25,18 +26,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/carrinho")
 @Tag(name = "Carrinho", description = "Gerenciamento do carrinho de compras")
+
 public class CarrinhoController {
 
+    private static final Logger log = LoggerFactory.getLogger(CarrinhoController.class);
 
     private final CadastrarCarrinhoService carrinhoService;
     private final AtualizarCarrinhoService atualizarItensCarrinho;
     private final AdicionarOuRemoverItem adicionarOuRemoverItem;
-    private final ListarCarrinho listarCarrinho;
-    public CarrinhoController(CadastrarCarrinhoService carrinhoService, AtualizarCarrinhoService atualizarCarrinho, AdicionarOuRemoverItem adicionarOuRemoverItem,ListarCarrinho listarCarrinho) {
+    private final ListarCarrinhoService listarCarrinho;
+
+
+    private final LimparCarrinhoService limparCarrinhoService;
+
+    public CarrinhoController(CadastrarCarrinhoService carrinhoService, AtualizarCarrinhoService atualizarCarrinho, AdicionarOuRemoverItem adicionarOuRemoverItem, ListarCarrinhoService listarCarrinho, LimparCarrinhoService limparCarrinho, LimparCarrinhoService limparCarrinhoService) {
         this.carrinhoService = carrinhoService;
         this.atualizarItensCarrinho = atualizarCarrinho;
         this.adicionarOuRemoverItem = adicionarOuRemoverItem;
         this.listarCarrinho =listarCarrinho;
+        this.limparCarrinhoService = limparCarrinhoService;
     }
 
 
@@ -45,7 +53,7 @@ public class CarrinhoController {
 
     @Operation(summary = "Criar carrinho", description = "Cria um novo carrinho para o usuário logado (se não existir um ativo).")
     @PostMapping
-    @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<CarrinhoResponseDetailDto> criarCarrinho(
             UriComponentsBuilder uriBuilder,
             @AuthenticationPrincipal Usuario usuario) {
@@ -53,7 +61,7 @@ public class CarrinhoController {
         CarrinhoResponseDetailDto cadastroCarrinho = carrinhoService.cadastrar(usuario);
 
         var uri = uriBuilder.path("/carrinhos/{id}")
-                .buildAndExpand(cadastroCarrinho.id())
+                .buildAndExpand(cadastroCarrinho.getId())
                 .toUri();
 
         return ResponseEntity.created(uri).body(cadastroCarrinho);
@@ -82,12 +90,12 @@ public class CarrinhoController {
 
     @Operation(summary = "Adicionar ou atualizar itens", description = "Adiciona itens ao carrinho ou atualiza a quantidade se já existirem.")
     @PutMapping("/{idCarrinho}/itens")
-    public ResponseEntity<CarrinhoItensResponseDetailDto> adicionarItens(
+    public ResponseEntity<CarrinhoResponseDetailDto> adicionarItens(
             @PathVariable Long idCarrinho,
             @RequestBody List<ItemCarrinhoDto> itensCarrinho,
             @AuthenticationPrincipal Usuario usuario) {
 
-        CarrinhoItensResponseDetailDto response = atualizarItensCarrinho
+        CarrinhoResponseDetailDto response = atualizarItensCarrinho
                 .atualizarItensCarrinho(usuario.getId(), itensCarrinho, idCarrinho);
 
         return ResponseEntity.ok(response);
@@ -99,18 +107,28 @@ public class CarrinhoController {
     public ResponseEntity<Void> modificarQuantidadeItem(
             @PathVariable Long idCarrinho,
             @PathVariable Long idItem,
-            @RequestBody ItemCarrinhoRequestDto itemCarrinho,
+            @RequestBody ItemCarrinhoRequestDto itemCarrinhoDto,
             @AuthenticationPrincipal Usuario usuario) {
 
-        adicionarOuRemoverItem.atualizarQuantidadeItem(idCarrinho, itemCarrinho, usuario.getId());
+        log.info("Atualizando quantidade de item do:  " + usuario.getId());
+
+        adicionarOuRemoverItem.atualizarQuantidadeItem(idCarrinho, itemCarrinhoDto, usuario.getId(),idItem);
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CarrinhoResponseDetailDto> limparCarrinho(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+        CarrinhoResponseDetailDto carrinhoLimpo = limparCarrinhoService.limparCarrinho(id, usuario.getId());
+
+        return ResponseEntity.ok(carrinhoLimpo);
+
+    }
+/*
     @PostMapping("/{idCarrinho}/checkout")
     private ResponseEntity<Void> checkout(){
 
     }
-
+*/
     // 6️⃣ Remover um item do carrinho
     /*
     @Operation(summary = "Remover item do carrinho", description = "Remove um item específico do carrinho.")

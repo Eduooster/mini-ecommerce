@@ -20,9 +20,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityFilter securityFilter) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // desativa CSRF
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // libera todos endpoints
+                        .anyRequest().permitAll()
 
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 

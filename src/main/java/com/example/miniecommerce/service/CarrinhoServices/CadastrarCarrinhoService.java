@@ -2,11 +2,12 @@ package com.example.miniecommerce.service.CarrinhoServices;
 
 
 import com.example.miniecommerce.domain.Carrinho;
+import com.example.miniecommerce.domain.StatusCarrinho;
 import com.example.miniecommerce.domain.Usuario;
-import com.example.miniecommerce.infra.repositorie.CarrinhoRepository;
+import com.example.miniecommerce.infra.repositories.CarrinhoRepository;
 import com.example.miniecommerce.web.dto.out.CarrinhoResponseDetailDto;
 import com.example.miniecommerce.web.mapper.CarrinhoMapper;
-import jakarta.validation.Valid;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,9 @@ public class CadastrarCarrinhoService {
     private CarrinhoMapper carrinhoMapper;
 
 
-    public CarrinhoResponseDetailDto cadastrar(@Valid Usuario usuario) {
-        return carrinhoRepository.findByUsuarioIdAndStatus(usuario.getId(), "ATIVO")
+    @Transactional
+    public CarrinhoResponseDetailDto cadastrar(Usuario usuario) {
+        return carrinhoRepository.findByUsuarioIdAndStatus(usuario.getId(),StatusCarrinho.ABERTO)
                 .map(carrinhoMapper::toCarrinhoResponseDetailDto)
                 .orElseGet(() -> {
                     Carrinho carrinhoNovo = criarCarrinhoVazioParaUsuario(usuario);
@@ -30,6 +32,8 @@ public class CadastrarCarrinhoService {
                     return carrinhoMapper.toCarrinhoResponseDetailDto(carrinhoNovo);
                 });
     }
+
+
 
     Carrinho criarCarrinhoVazioParaUsuario(Usuario usuario){
         Carrinho carrinho = new Carrinho();

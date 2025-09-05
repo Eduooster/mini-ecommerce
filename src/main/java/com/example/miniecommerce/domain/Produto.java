@@ -35,6 +35,9 @@ public class Produto {
     private Boolean deleted = false;
     private String sku;
 
+    @Embedded
+    private Dimensao dimensao;
+
     //Um produto pd estar em variso carrinhos
     @OneToMany(mappedBy = "produto")
     private List<ItemCarrinho> itens = new ArrayList<>();

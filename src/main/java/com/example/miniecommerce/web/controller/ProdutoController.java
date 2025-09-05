@@ -1,6 +1,6 @@
 package com.example.miniecommerce.web.controller;
 
-import com.example.miniecommerce.service.CrudProdutoService;
+import com.example.miniecommerce.service.ProdutoServices.CrudProdutoService;
 import com.example.miniecommerce.web.dto.in.ProdutoCreateRequestDto;
 import com.example.miniecommerce.web.dto.out.ProdutoDetailsResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +26,6 @@ public class ProdutoController {
 
 
     @PostMapping
-    @Transactional
     public ResponseEntity<ProdutoDetailsResponseDto> create(@RequestBody @Valid ProdutoCreateRequestDto dto, UriComponentsBuilder uriBuilder) {
 
         ProdutoDetailsResponseDto cadastroProduto = crudProdutoService.cadastrar(dto);
@@ -43,7 +42,7 @@ public class ProdutoController {
         return ResponseEntity.ok(page);
     }
 
-    @Transactional
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ProdutoDetailsResponseDto> delete(@PathVariable Long id) {
         ProdutoDetailsResponseDto produtoDeletado = crudProdutoService.deletar(id);

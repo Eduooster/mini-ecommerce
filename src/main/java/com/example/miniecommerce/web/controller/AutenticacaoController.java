@@ -1,7 +1,7 @@
 package com.example.miniecommerce.web.controller;
 
 
-import com.example.miniecommerce.service.AutenticacaoService;
+import com.example.miniecommerce.service.AutenticacaoServices.AutenticacaoService;
 import com.example.miniecommerce.web.dto.in.DadoAuthRequestDto;
 import com.example.miniecommerce.web.dto.out.DadosTokenJwt;
 import io.swagger.v3.oas.annotations.tags.Tag;

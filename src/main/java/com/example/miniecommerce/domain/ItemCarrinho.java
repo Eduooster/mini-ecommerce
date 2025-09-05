@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,6 +19,9 @@ public class ItemCarrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Pedido pedido;
+
     // Muitos itens podem estar associados a um produto
     @ManyToOne
     private Carrinho carrinho;
@@ -25,4 +30,8 @@ public class ItemCarrinho {
     @ManyToOne
     private Produto produto;
     private int quantidade;
+
+    public BigDecimal getSubTotal() {
+        return produto.getPreco().multiply(new BigDecimal(quantidade));
+    }
 }

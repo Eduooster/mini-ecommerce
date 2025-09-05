@@ -1,12 +1,13 @@
 package com.example.miniecommerce.web.dto.in;
 
-import com.example.miniecommerce.web.dto.out.EnderecoDto;
+import com.example.miniecommerce.domain.Produto;
+import com.example.miniecommerce.web.dto.out.ItensCarrinhoDetail;
+import com.example.miniecommerce.web.dto.out.ProdutoDetailsResponseDto;
+import com.example.miniecommerce.web.dto.out.ProdutoPedidoResponseDto;
 
-public record PedidoCreateRequestDto(Long idPedido,
-                                     EnderecoDto endereco,
+import java.util.List;
 
+public record PedidoCreateRequestDto(
 
-
-
-                                     ) {
+) {
 }

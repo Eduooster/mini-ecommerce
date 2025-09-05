@@ -1,6 +1,6 @@
 package com.example.miniecommerce.infra.security;
 
-import com.example.miniecommerce.infra.repositorie.UsuarioRepository;
+import com.example.miniecommerce.infra.repositories.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +27,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         var tokenJWT = recuperarToken(request);
-
-
 
         if(tokenJWT != null) {
 

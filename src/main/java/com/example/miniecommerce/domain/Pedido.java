@@ -1,37 +1,47 @@
 package com.example.miniecommerce.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+
+@Data
 @Table(name = "pedido_m")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dataCadastro;
-    private Boolean deleted;
+
+    @Column(updatable = false) // nunca será alterada depois do insert
+    private LocalDateTime dataCadastro = LocalDateTime.now();
+    private Boolean deleted = false;
 
     @ManyToOne
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ItemPedido> itens;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
     private BigDecimal total;
-    private String tipoEntrega;
+
+
+    private TipoEntrega tipoEntrega;
+
+
     private Endereco enderecoEntrega;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Pagamento pagamento;
 
     @OneToOne
-    @JoinColumn(name = "carrinho_id")
     private Carrinho carrinho;
 
 

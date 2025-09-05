@@ -1,6 +1,6 @@
 package com.example.miniecommerce.web.controller;
 
-import com.example.miniecommerce.service.CrudUsuarioService;
+import com.example.miniecommerce.service.UsuarioServices.CrudUsuarioService;
 import com.example.miniecommerce.web.dto.in.UsuarioCreateRequestDto;
 import com.example.miniecommerce.web.dto.out.ListaUsuarioResponseDto;
 import com.example.miniecommerce.web.dto.out.UsuarioDetailsResponseDto;
@@ -31,7 +31,6 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<UsuarioDetailsResponseDto> create(@RequestBody @Valid UsuarioCreateRequestDto dto, UriComponentsBuilder uriBuilder) {
 
         UsuarioDetailsResponseDto cadastroNovoUsuario = crudUsuarioService.cadastrar(dto);
@@ -48,7 +47,7 @@ public class UsuarioController {
         return ResponseEntity.ok(page);
     }
 
-    @Transactional
+
     @DeleteMapping("/{id}")
     public ResponseEntity<UsuarioDetailsResponseDto> delete(@PathVariable Long id) {
         UsuarioDetailsResponseDto usuarioDeletado = crudUsuarioService.deletar(id);
@@ -58,8 +57,6 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDetailsResponseDto> detalhar(@PathVariable Long id) {
         UsuarioDetailsResponseDto  dto = crudUsuarioService.detalhar(id);
-        Map<Exception,String> map = new HashMap<>();
-
         return ResponseEntity.ok(dto);
     }
 

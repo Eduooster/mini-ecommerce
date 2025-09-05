@@ -1,4 +1,8 @@
 package com.example.miniecommerce.web.dto.out;
 
-public record PedidoDetailsResponseDto(Long id) {
+
+
+public record PedidoDetailsResponseDto(
+        Long id
+) {
 }
